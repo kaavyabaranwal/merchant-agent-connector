@@ -1,4 +1,4 @@
-import ZohoClient from "./client";
+import ZohoClient from "./client.js";
 
 const zoho = new ZohoClient();
 
@@ -36,12 +36,13 @@ export async function getItemById(itemId: string) {
     status: item.status,
   };
 }
-async function main() {
-  const result = await getItemById("4220718000000034204");
-  console.log(JSON.stringify(result, null, 2));
-}
+// async function main() {
+//   const result = await getItemById("4220718000000034204");
+//   console.log(JSON.stringify(result, null, 2));
+// }
 
-main().catch(console.error);
+// main().catch(console.error);
+
 // async function main() {
 //   const result = await searchItems("keyboard");
 //   console.log(JSON.stringify(result, null, 2));

@@ -1,4 +1,5 @@
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios, { AxiosError } from "axios";
+import type { AxiosInstance } from "axios";
 import "dotenv/config";
 
 class ZohoClient {
@@ -6,7 +7,7 @@ class ZohoClient {
 
     constructor() {
         this.client = axios.create({
-            baseURL: process.env.ZOHO_API_URL,
+            baseURL: process.env.ZOHO_API_URL!,
         });
     }
 
@@ -33,6 +34,7 @@ class ZohoClient {
                 await new Promise((resolve) => setTimeout(resolve, delay));
             }
         }
+        throw new Error("Zoho API request failed after retries");
     }
     private handleError(error: unknown): never {
         const axiosError = error as AxiosError;

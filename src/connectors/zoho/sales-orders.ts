@@ -1,4 +1,4 @@
-import ZohoClient from "./client";
+import ZohoClient from "./client.js";
 
 const zoho = new ZohoClient();
 
@@ -46,18 +46,18 @@ export async function getSalesOrderById(salesOrderId: string) {
     })),
   };
 }
-async function main() {
-  console.log("=== SEARCH ===");
+// async function main() {
+//   console.log("=== SEARCH ===");
 
-  const searchResult = await searchSalesOrders("SO-00002");
-  console.log(JSON.stringify(searchResult, null, 2));
+//   const searchResult = await searchSalesOrders("SO-00002");
+//   console.log(JSON.stringify(searchResult, null, 2));
 
-  console.log("\n=== GET BY ID ===");
+//   console.log("\n=== GET BY ID ===");
 
-  const detailResult = await getSalesOrderById(
-    "4220718000000034239"
-  );
-  console.log(JSON.stringify(detailResult, null, 2));
-}
+//   const detailResult = await getSalesOrderById(
+//     "4220718000000034239"
+//   );
+//   console.log(JSON.stringify(detailResult, null, 2));
+// }
 
-main().catch(console.error);
+// main().catch(console.error);
