@@ -58,6 +58,18 @@ class ZohoClient {
 
     return response.data;
   }
+  async getItem(itemId: string) {
+  const headers = await this.getAuthHeaders();
+
+  const response = await this.client.get(`/items/${itemId}`, {
+    headers,
+    params: {
+      organization_id: process.env.ZOHO_ORGANIZATION_ID,
+    },
+  });
+
+  return response.data;
+}
 }
 
 
