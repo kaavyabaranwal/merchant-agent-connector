@@ -18,6 +18,8 @@ Zoho Inventory Connector
    v
 Zoho Inventory API
 ```
+## Input interface
+<img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/a38547f7-dfc6-49fa-ac23-69bb1c43f476" />
 
 ## Available MCP Tools
 
@@ -44,9 +46,17 @@ Returns normalized inventory information, including:
 - Reorder level
 - Item status
 
+Example Ouput (Input - query : keyboard)
+<img width="1917" height="866" alt="image" src="https://github.com/user-attachments/assets/9093dcb7-b119-4dde-a1fd-a10bf3284695" />
+
+
 ### `get_item`
 
 Get a specific inventory item by ID. Returns additional information such as purchase price.
+
+Example Ouput with item id (Input - query : 4220718000000034204)
+<img width="1917" height="865" alt="image" src="https://github.com/user-attachments/assets/80630fc0-afef-4da6-9d05-85a55015623e" />
+
 
 ### `search_sales_orders`
 
@@ -63,6 +73,10 @@ Returns:
 - Currency
 - Quantity
 
+Example output - After searching for sales order "SO-00002"
+<img width="1916" height="866" alt="image" src="https://github.com/user-attachments/assets/fa8ab757-04da-46bd-84ad-f622c7ab9431" />
+
+
 ### `get_sales_order`
 
 Get a sales order by ID, including its line items:
@@ -72,6 +86,10 @@ Get a sales order by ID, including its line items:
 - Quantity
 - Rate
 - Line-item total
+
+Example output - After searching for salesOrderId - 4220718000000034239
+<img width="1912" height="863" alt="image" src="https://github.com/user-attachments/assets/108430f6-c4da-47ea-bbb1-f17e7d1421ff" />
+
 
 ## Authentication
 
@@ -92,11 +110,11 @@ Secrets are never committed to the repository.
 
 ## Rate Limiting and Error Handling
 
-The Zoho client handles API failures centrally:
+The Zoho client handles API failures centrally in client.ts:
 
 - `401` → authentication error
 - `404` → resource not found
-- `429` → rate-limit error with exponential backoff
+- `429` → rate-limit error 
 - `5xx` → temporary Zoho API failure
 - Other errors → generic API failure
 
@@ -126,13 +144,13 @@ An agent can use the connector to answer questions such as:
 
 > Show me order SO-00002 and its line items.
 
-> Find inventory items matching "webcam".
+> Find inventory items matching "keyboard".
 
 > What is the current stock for item `4220718000000034204`?
 
 ## Scope and Limitations
 
-This connector is intentionally read-only.
+This connector is intentionally read-only. However it can easily be expanded to write scope as Zoho supports write operations.
 
 ### Supported
 
@@ -143,7 +161,7 @@ This connector is intentionally read-only.
 - OAuth authentication
 - Rate-limit handling
 
-### Not supported
+### Not supported (currently)
 
 - Creating or updating inventory items
 - Creating or modifying sales orders
@@ -160,6 +178,6 @@ The connector exposes a small set of focused primitives rather than the entire Z
 
 OAuth credentials are supplied through environment variables.
 
-Do not commit `.env` files, refresh tokens, client secrets, or seeded credentials.
+NOT committed - `.env` files, refresh tokens, client secrets, or seeded credentials.
 
 The connector only exposes read operations to the agent.
