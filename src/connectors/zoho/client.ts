@@ -20,11 +20,12 @@ class ZohoClient {
             } catch (error) {
                 const axiosError = error as AxiosError;
 
-                if (
-                    axiosError.response?.status !== 429 ||
-                    attempt === retries
-                ) {
-                    throw error;
+                if (axiosError.response?.status !== 429) {
+                    this.handleError(error);
+                }
+
+                if (attempt === retries) {
+                    this.handleError(error);
                 }
 
                 const delay = 500 * Math.pow(2, attempt);
@@ -32,10 +33,30 @@ class ZohoClient {
                 await new Promise((resolve) => setTimeout(resolve, delay));
             }
         }
-
-        throw new Error("Request failed after retries");
     }
+    private handleError(error: unknown): never {
+        const axiosError = error as AxiosError;
 
+        const status = axiosError.response?.status;
+
+        if (status === 401) {
+            throw new Error("Zoho authentication failed");
+        }
+
+        if (status === 404) {
+            throw new Error("Zoho resource not found");
+        }
+
+        if (status === 429) {
+            throw new Error("Zoho API rate limit exceeded");
+        }
+
+        if (status && status >= 500) {
+            throw new Error("Zoho API is temporarily unavailable");
+        }
+
+        throw new Error("Zoho API request failed");
+    }
     private async getAccessToken(): Promise<string> {
         const response = await axios.post(
             `${process.env.ZOHO_ACCOUNTS_URL}/oauth/v2/token`,
