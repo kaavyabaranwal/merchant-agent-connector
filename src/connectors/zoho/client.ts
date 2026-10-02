@@ -45,13 +45,14 @@ class ZohoClient {
     return response.data;
   }
 
-  async getItems() {
+  async getItems(searchText?: string) {
     const headers = await this.getAuthHeaders();
 
     const response = await this.client.get("/items", {
       headers,
       params: {
         organization_id: process.env.ZOHO_ORGANIZATION_ID,
+        ...(searchText ? { search_text: searchText } : {}),
       },
     });
 
@@ -59,17 +60,5 @@ class ZohoClient {
   }
 }
 
-async function main() {
-  const zoho = new ZohoClient();
 
-  const items = await zoho.getItems();
-
-  console.log(JSON.stringify(items, null, 2));
-}
-
-main().catch((error) => {
-  console.error(
-    "Zoho API request failed:",
-    error.response?.data ?? error.message
-  );
-});
+export default ZohoClient;
