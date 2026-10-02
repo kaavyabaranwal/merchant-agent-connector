@@ -7,7 +7,10 @@ A read-only MCP connector that exposes Zoho Inventory data to an AI agent throug
 ```text
 AI Agent ----> MCP Tools ----> Zoho Inventory Connectors -- OAuth2.0 --> Zoho Inventory API
 ```
+Detailed Flow - https://gitdiagram.com/kaavyabaranwal/merchant-agent-connector/
+
 <img width="320" height="464" alt="image" src="https://github.com/user-attachments/assets/738db887-84a7-43b3-9886-dcf8ced8a835" />
+
 
 ## Input interface
 <img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/a38547f7-dfc6-49fa-ac23-69bb1c43f476" />
